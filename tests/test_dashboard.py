@@ -65,6 +65,13 @@ def test_tableau_xml_matches_the_workbook_schema():
     for style in root.iter("style"):
         for child in list(style):
             assert child.tag == "style-rule", child.tag
+    xml = ET.tostring(root, encoding="unicode")
+    assert "[none:group:nk]" in xml
+    assert "Defense" in xml
+    assert "Prawns (farmed)" in xml
+    claims = root.find("worksheets/worksheet[@name='Claims']")
+    assert claims is not None
+    assert claims.find(".//color") is None
 
 
 def test_hhs_is_not_in_the_livingry_sum_story():

@@ -115,6 +115,7 @@ class Datasource:
     filename: str
     formats: dict[str, str] = field(default_factory=dict)
     styles: str = ""
+    aliases: dict[str, dict[str, str]] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         self.name = "federated." + ident(self.caption)
@@ -130,9 +131,19 @@ class Datasource:
             role, kind = role_of(col, dtype)
             fmt = self.formats.get(col)
             fmt_attr = f" default-format='{a(fmt)}'" if fmt else ""
-            out.append(
-                f"<column datatype='{dtype}'{fmt_attr} name='[{a(col)}]' role='{role}' type='{kind}' />"
-            )
+            alias = self.aliases.get(col)
+            if alias:
+                items = "".join(
+                    f"<alias key='{member(src)}' value='{a(dst)}' />" for src, dst in alias.items()
+                )
+                out.append(
+                    f"<column datatype='{dtype}'{fmt_attr} name='[{a(col)}]' role='{role}' type='{kind}'>"
+                    f"<aliases>{items}</aliases></column>"
+                )
+            else:
+                out.append(
+                    f"<column datatype='{dtype}'{fmt_attr} name='[{a(col)}]' role='{role}' type='{kind}' />"
+                )
         return "\n        ".join(out)
 
     @property
@@ -190,10 +201,35 @@ agencies = Datasource(
     "agency_fy2025.csv",
     formats={"obligations": '"$"#,##0'},
 )
+# The palette field is the local instance. A federated prefix here is ignored, and Tableau
+# then paints each bar from the default palette, which includes red and orange.
 agencies.styles = color_map(
-    agencies.ref("none:group:nk"),
+    "[none:group:nk]",
     [("weaponry", NAVY), ("livingry", TEAL), ("mixed", SLATE), ("energy", BLUE), ("provision", STEEL)],
 )
+agencies.aliases = {
+    "agency": {
+        "Department of Defense": "Defense",
+        "Department of Agriculture": "Agriculture",
+        "Environmental Protection Agency": "EPA",
+        "Department of Housing and Urban Development": "HUD",
+        "Department of the Interior": "Interior",
+        "Department of Energy": "Energy",
+        "Department of Education": "Education",
+        "Department of Health and Human Services": "HHS",
+    }
+}
+PROTEIN_FOODS = [
+    "Lamb & Mutton",
+    "Beef (beef herd)",
+    "Dark Chocolate",
+    "Cheese",
+    "Pig Meat",
+    "Poultry Meat",
+    "Eggs",
+    "Tofu",
+    "Prawns (farmed)",
+]
 co2 = Datasource("Mauna Loa", "co2_monthly.csv", formats={"ppm": "#,##0.00"})
 protein = Datasource("Protein land", "protein_land.csv", formats={"land_use_m2": "#,##0.0"})
 claims = Datasource("Claims", "claims.csv")
@@ -211,6 +247,7 @@ class Sheet:
     encodings: list[tuple[str, str]] = field(default_factory=list)
     instances: list[str] = field(default_factory=list)
     filters: str = ""
+    sorts: str = ""
     style: str = ""
 
     def xml(self) -> str:
@@ -241,6 +278,7 @@ class Sheet:
             {" ".join(inst)}
           </datasource-dependencies>
           {self.filters}
+          {self.sorts}
           <aggregation value='true' />
         </view>
         <style>{style}</style>
@@ -256,6 +294,25 @@ class Sheet:
     </worksheet>"""
 
 
+def member_filter(ds: Datasource, level: str, values: list[str]) -> str:
+    items = "".join(
+        f"<groupfilter function='member' level='[{a(level)}]' member='{member(v)}' />" for v in values
+    )
+    marker = "user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'"
+    return (
+        f"<filter class='categorical' column='{a(ds.ref(level))}'>"
+        f"<groupfilter function='union' {marker}>{items}</groupfilter></filter>"
+    )
+
+
+def manual_sort(ds: Datasource, level: str, values: list[str]) -> str:
+    buckets = "".join(f"<bucket>{member(v)}</bucket>" for v in values)
+    return (
+        f"<manual-sort column='{a(ds.ref(level))}' direction='ASC'>"
+        f"<dictionary>{buckets}</dictionary></manual-sort>"
+    )
+
+
 sheets = [
     Sheet(
         "Obligations",
@@ -266,7 +323,10 @@ sheets = [
         "Bar",
         encodings=[("color", agencies.ref("none:group:nk"))],
         instances=["none:agency:nk", "sum:obligations:qk", "none:group:nk"],
-        style=agencies.styles,
+        sorts=(
+            f"<computed-sort column='{a(agencies.ref('none:agency:nk'))}' direction='DESC' "
+            f"using='{a(agencies.ref('sum:obligations:qk'))}' />"
+        ),
     ),
     Sheet(
         "Mauna Loa",
@@ -275,27 +335,32 @@ sheets = [
         co2.ref("avg:ppm:qk"),
         co2.ref("none:year:ok"),
         "Line",
-        encodings=[("color", co2.ref("avg:ppm:qk"))],
         instances=["avg:ppm:qk", "none:year:ok"],
     ),
     Sheet(
         "Land per protein",
-        "Square meters of land per 100g protein. Poore and Nemecek 2018, not a live feed.",
+        "Nine foods from the 32-row table, square meters per 100g protein. Dark chocolate ranks high because the metric is land per protein. Prawns rank low because land ignores feed, water, and energy. Poore and Nemecek 2018, not a live feed.",
         protein,
         protein.ref("none:entity:nk"),
         protein.ref("sum:land_use_m2:qk"),
         "Bar",
         instances=["none:entity:nk", "sum:land_use_m2:qk"],
+        filters=member_filter(protein, "none:entity:nk", PROTEIN_FOODS),
+        sorts=manual_sort(protein, "none:entity:nk", PROTEIN_FOODS),
     ),
     Sheet(
         "Claims",
-        "Verdicts are labels, not weights. Read the caveat column.",
+        "Verdicts are labels, not weights. Hover a row for the evidence and the caveat.",
         claims,
         claims.ref("none:statement:nk"),
-        claims.ref("none:verdict:nk"),
+        "",
         "Text",
-        encodings=[("text", claims.ref("none:evidence:nk")), ("color", claims.ref("none:verdict:nk"))],
-        instances=["none:statement:nk", "none:evidence:nk", "none:verdict:nk"],
+        encodings=[
+            ("text", claims.ref("none:verdict:nk")),
+            ("tooltip", claims.ref("none:evidence:nk")),
+            ("tooltip", claims.ref("none:caveat:nk")),
+        ],
+        instances=["none:statement:nk", "none:verdict:nk", "none:evidence:nk", "none:caveat:nk"],
     ),
 ]
 
@@ -307,28 +372,37 @@ def zone(sheet: str, zid: int, x: int, y: int, w: int, h: int) -> str:
     )
 
 
+def legend_zone(zid: int, sheet: str, field: str, x: int, y: int, w: int, h: int) -> str:
+    return (
+        f"<zone h='{h}' id='{zid}' name='{a(sheet)}' pane-specification-id='0' "
+        f"param='{a(field)}' type-v2='color' w='{w}' x='{x}' y='{y}' />"
+    )
+
+
 def dashboard_xml() -> str:
     title = (
-        "<zone h='8000' id='3' type-v2='text' w='100000' x='0' y='0'><formatted-text>"
+        "<zone h='5000' id='3' type-v2='text' w='100000' x='0' y='0'><formatted-text>"
         f"<run bold='true' fontcolor='{INK}' fontsize='18'>The Livingry Dashboard</run></formatted-text></zone>"
     )
     note = (
-        "<zone h='5000' id='4' type-v2='text' w='100000' x='0' y='8000'><formatted-text>"
-        "<run fontcolor='#334155' fontsize='10'>Each pane keeps its own unit. Nothing on this dashboard is summed into a score. "
-        "HHS is mostly mandatory spending. The four teal agencies are an author grouping.</run></formatted-text></zone>"
+        "<zone h='4500' id='4' type-v2='text' w='100000' x='0' y='5000'><formatted-text>"
+        "<run fontcolor='#334155' fontsize='10'>Each pane keeps its own unit. Nothing is summed into a score. "
+        "Navy is Defense. Teal is the author group: Agriculture, EPA, HUD, Interior. "
+        "Slate is HHS, shown and not added in. Blue is Energy. Steel is Education.</run></formatted-text></zone>"
     )
     zones = "\n".join([
         title,
         note,
-        zone("Obligations", 5, 0, 14000, 56000, 42000),
-        zone("Mauna Loa", 6, 56000, 14000, 44000, 42000),
-        zone("Land per protein", 7, 0, 57000, 48000, 40000),
-        zone("Claims", 8, 48000, 57000, 52000, 40000),
+        zone("Obligations", 5, 0, 10000, 62000, 40000),
+        legend_zone(6, "Obligations", agencies.ref("none:group:nk"), 62000, 10000, 14000, 18000),
+        zone("Mauna Loa", 7, 76000, 10000, 24000, 40000),
+        zone("Land per protein", 8, 0, 51000, 100000, 23000),
+        zone("Claims", 9, 0, 75000, 100000, 24000),
     ])
     return f"""
     <dashboard name='Livingry Dashboard'>
       <style />
-      <size maxheight='1100' maxwidth='1200' minheight='1100' minwidth='1200' />
+      <size maxheight='1400' maxwidth='1200' minheight='1400' minwidth='1200' />
       <zones>
         <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
           {zones}

@@ -10,6 +10,8 @@ depend on, checks the claims against the pull, and leaves the gaps listed.
 
 It is not a published book, and it does not compute a Livingry score.
 
+Public viz: [The Livingry Dashboard](https://public.tableau.com/app/profile/jason.pellerin/viz/livingry_dashboard/LivingryDashboard).
+
 ![Cover](reports/figures/cover.png)
 
 ## The pull, 29 September 2026
