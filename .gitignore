@@ -6,4 +6,5 @@ data/raw/
 data/processed/
 *.duckdb
 tableau/*.twbx
+tableau/.~*
 .DS_Store

@@ -224,6 +224,10 @@ class Sheet:
                 f"name='[{a(item)}]' pivot='key' type='{kind}' />"
             )
         enc = "".join(f"<{kind} column='{a(ref)}' />" for kind, ref in self.encodings)
+        # <style> only accepts <style-rule>. A bare <encoding> fails workbook load.
+        style = self.style.strip()
+        if style and not style.startswith("<style-rule"):
+            style = f"<style-rule element='mark'>{style}</style-rule>"
         return f"""
     <worksheet name='{a(self.name)}'>
       <layout-options><title><formatted-text>
@@ -239,7 +243,7 @@ class Sheet:
           {self.filters}
           <aggregation value='true' />
         </view>
-        <style>{self.style}</style>
+        <style>{style}</style>
         <panes><pane>
           <view><breakdown value='auto' /></view>
           <mark class='{self.mark}' />
@@ -352,6 +356,11 @@ def window(sheet: Sheet) -> str:
 def workbook_xml() -> str:
     return f"""<?xml version='1.0' encoding='utf-8' ?>
 <workbook source-build='{BUILD}' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
   <preferences>
     <color-palette name='Livingry' type='regular'>
       <color>{NAVY}</color><color>{TEAL}</color><color>{BLUE}</color><color>{SLATE}</color><color>{STEEL}</color>
@@ -364,6 +373,10 @@ def workbook_xml() -> str:
     {"".join(window(s) for s in sheets)}
     <window class='dashboard' maximized='true' name='Livingry Dashboard'>
       <viewpoints>{"".join(f"<viewpoint name='{a(s.name)}'><zoom type='entire-view' /></viewpoint>" for s in sheets)}</viewpoints>
+      <active id='-1' />
+      <device-preview>
+        <device is-portrait='true' name='Generic Phone' type='Phone' />
+      </device-preview>
       <simple-id uuid='{simple_id("window/dashboard")}' />
     </window>
   </windows>

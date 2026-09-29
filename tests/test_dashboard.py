@@ -52,6 +52,21 @@ def test_lockheed_is_not_summed():
     assert "not added" in evidence
 
 
+def test_tableau_xml_matches_the_workbook_schema():
+    """A bare <encoding> inside <style>, or a missing identifier manifest, will not open."""
+    import xml.etree.ElementTree as ET
+
+    from livingry.tableau_workbook import workbook_xml
+
+    root = ET.fromstring(workbook_xml())
+    manifest = root.find("document-format-change-manifest")
+    assert manifest is not None
+    assert manifest.find("WindowsPersistSimpleIdentifiers") is not None
+    for style in root.iter("style"):
+        for child in list(style):
+            assert child.tag == "style-rule", child.tag
+
+
 def test_hhs_is_not_in_the_livingry_sum_story():
     claims = table("claims").set_index("claim_id")
     assert claims.loc["hhs_not_in_the_group", "verdict"] == "caveat_confirmed"
