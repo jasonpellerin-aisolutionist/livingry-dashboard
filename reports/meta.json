@@ -1,0 +1,101 @@
+{
+  "retrieved_at": "2026-09-29T21:21:30Z",
+  "built_at": "2026-09-29T21:27:08Z",
+  "complete_fy": 2025,
+  "agencies": [
+    {
+      "agency": "Department of Defense",
+      "group": "weaponry",
+      "obligations": 1451320548889.53
+    },
+    {
+      "agency": "Department of Agriculture",
+      "group": "livingry",
+      "obligations": 276630012349.95
+    },
+    {
+      "agency": "Environmental Protection Agency",
+      "group": "livingry",
+      "obligations": 34262577412.72
+    },
+    {
+      "agency": "Department of Housing and Urban Development",
+      "group": "livingry",
+      "obligations": 90532059832.78
+    },
+    {
+      "agency": "Department of the Interior",
+      "group": "livingry",
+      "obligations": 42848868679.89
+    },
+    {
+      "agency": "Department of Energy",
+      "group": "energy",
+      "obligations": 98524875710.33
+    },
+    {
+      "agency": "Department of Education",
+      "group": "provision",
+      "obligations": 179690157931.34
+    },
+    {
+      "agency": "Department of Health and Human Services",
+      "group": "mixed",
+      "obligations": 2794349803088.6
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "dod_and_epa_same_quantity",
+      "verdict": "magnitude_reported",
+      "evidence": "FY2025 obligations: Defense $1451.3B, EPA $34.3B, ratio 42 to 1. Both figures are agency obligations."
+    },
+    {
+      "claim_id": "author_livingry_group",
+      "verdict": "magnitude_reported",
+      "evidence": "FY2025: Defense $1451.3B against $444.3B for the four-agency group (3.3 to 1)."
+    },
+    {
+      "claim_id": "hhs_not_in_the_group",
+      "verdict": "caveat_confirmed",
+      "evidence": "FY2025 HHS obligations $2794.3B, mostly Medicare and Medicaid."
+    },
+    {
+      "claim_id": "lockheed_vs_epa",
+      "verdict": "magnitude_reported",
+      "evidence": "Largest Lockheed registration in the FY2025 top 15 (LOCKHEED MARTIN CORPORATION, UEI G4KDGE4JFFK7): $34.1B. EPA obligations the same year: $34.3B. Other Lockheed registrations in the top 15, not added: UEI XFJMYSYFJEK4 $10.4B, UEI H7PNSVNN5827 $6.1B."
+    },
+    {
+      "claim_id": "calories_and_insecurity",
+      "verdict": "supported_as_coexistence",
+      "evidence": "United States food supply 3947 kcal per person per day (2023); 10.3% moderate or severe food insecurity in 2023."
+    },
+    {
+      "claim_id": "gdp_beside_co2",
+      "verdict": "descriptive_support",
+      "evidence": "United States GDP per capita (constant 2015 dollars): $39,200 in 1990, $67,946 in 2025. Mauna Loa annual mean, full years only: 354.5 ppm in 1990, 427.3 ppm in 2025. Latest month: 427.55 ppm in 2026-08."
+    },
+    {
+      "claim_id": "delivery_and_depletion",
+      "verdict": "descriptive_support",
+      "evidence": "World undernourishment 12.8% in 2000, 7.5% in 2019, before the projection footnote. FAO marks 2020-2025 as projections; 2025 is 7.8%. Mauna Loa full-year mean 354.5 ppm in 1990, 427.3 ppm in 2025."
+    },
+    {
+      "claim_id": "us_undernourishment_censored",
+      "verdict": "censored_at_floor",
+      "evidence": "SDG 2.1.1 for the United States is '<2.5' in 2024, and the same floor in 24 years of this pull."
+    },
+    {
+      "claim_id": "protein_land_spread",
+      "verdict": "magnitude_reported",
+      "evidence": "Highest in the table: Lamb & Mutton at 184.8 m2 per 100g protein. Lowest: Prawns (farmed) at 2.01 m2 (92 to 1). Beef herd 163.6 m2 against tofu 2.2 m2 (74 to 1)."
+    },
+    {
+      "claim_id": "military_share_of_gdp",
+      "verdict": "magnitude_reported",
+      "evidence": "SIPRI via Our World in Data: 3.12% of GDP in 2025."
+    }
+  ],
+  "co2_latest_ppm": 427.55,
+  "co2_latest": "2026-08"
+}

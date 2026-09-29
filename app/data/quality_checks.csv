@@ -1,0 +1,7 @@
+check_name,passed,detail
+every agency has the complete fiscal year,True,FY2025
+FY2026 is marked partial,True,partial_year true
+Mauna Loa latest ppm between 400 and 500,True,427.55
+United States calorie series exists,True,daily_calorie_supply
+no claim is a weighted index,True,"verdicts are labels, not weights"
+vacancy and homelessness are absent,True,chapter 1 exclusion
