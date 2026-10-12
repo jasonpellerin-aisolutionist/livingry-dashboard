@@ -1,6 +1,6 @@
 {
-  "retrieved_at": "2026-10-05T21:18:58Z",
-  "built_at": "2026-10-05T21:19:00Z",
+  "retrieved_at": "2026-10-12T21:58:13Z",
+  "built_at": "2026-10-12T21:58:14Z",
   "complete_fy": 2025,
   "agencies": [
     {
@@ -73,7 +73,7 @@
     {
       "claim_id": "gdp_beside_co2",
       "verdict": "descriptive_support",
-      "evidence": "United States GDP per capita (constant 2015 dollars): $39,200 in 1990, $67,946 in 2025. Mauna Loa annual mean, full years only: 354.5 ppm in 1990, 427.3 ppm in 2025. Latest month: 427.55 ppm in 2026-08."
+      "evidence": "United States GDP per capita (constant 2015 dollars): $39,200 in 1990, $67,946 in 2025. Mauna Loa annual mean, full years only: 354.5 ppm in 1990, 427.3 ppm in 2025. Latest month: 426.07 ppm in 2026-09."
     },
     {
       "claim_id": "delivery_and_depletion",
@@ -96,6 +96,6 @@
       "evidence": "SIPRI via Our World in Data: 3.12% of GDP in 2025."
     }
   ],
-  "co2_latest_ppm": 427.55,
-  "co2_latest": "2026-08"
+  "co2_latest_ppm": 426.07,
+  "co2_latest": "2026-09"
 }
