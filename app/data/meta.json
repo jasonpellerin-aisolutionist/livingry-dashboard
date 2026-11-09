@@ -1,6 +1,6 @@
 {
-  "retrieved_at": "2026-11-02T22:32:08Z",
-  "built_at": "2026-11-02T22:32:09Z",
+  "retrieved_at": "2026-11-09T23:14:36Z",
+  "built_at": "2026-11-09T23:14:37Z",
   "complete_fy": 2025,
   "agencies": [
     {
@@ -63,7 +63,7 @@
     {
       "claim_id": "lockheed_vs_epa",
       "verdict": "magnitude_reported",
-      "evidence": "Largest Lockheed registration in the FY2025 top 15 (LOCKHEED MARTIN CORPORATION, UEI G4KDGE4JFFK7): $34.1B. EPA obligations the same year: $34.3B. Other Lockheed registrations in the top 15, not added: UEI XFJMYSYFJEK4 $10.4B, UEI H7PNSVNN5827 $6.1B."
+      "evidence": "Largest Lockheed registration in the FY2025 top 15 (LOCKHEED MARTIN CORPORATION, UEI G4KDGE4JFFK7): $34.1B. EPA obligations the same year: $34.3B. Other Lockheed registrations in the top 15, not added: UEI XFJMYSYFJEK4 $17.4B, UEI H7PNSVNN5827 $7.1B."
     },
     {
       "claim_id": "calories_and_insecurity",
