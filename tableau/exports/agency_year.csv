@@ -1,6 +1,6 @@
 fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,partial_year
 2027,097,Department of Defense,weaponry,,,,True
-2026,097,Department of Defense,weaponry,1468976620557.11,1283091272160.17,2617506434639.06,True
+2026,097,Department of Defense,weaponry,1642272458844.19,1417815285566.72,2243442090821.89,True
 2025,097,Department of Defense,weaponry,1451320548889.53,1342207853342.79,2213230963902.27,False
 2024,097,Department of Defense,weaponry,1393415222232.11,1273430787033.52,1991791156124.69,False
 2023,097,Department of Defense,weaponry,1330544104855.49,1201506818580.03,1523433316840.06,False
@@ -11,7 +11,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,097,Department of Defense,weaponry,1092438524753.46,958727485921.33,1261940994955.88,False
 2017,097,Department of Defense,weaponry,1014206206108.0,918268551866.96,1163404425401.68,False
 2027,012,Department of Agriculture,livingry,,,,True
-2026,012,Department of Agriculture,livingry,222668102322.31,219705902818.97,480739565355.37,True
+2026,012,Department of Agriculture,livingry,252834178858.8,235902330224.09,424380076997.18,True
 2025,012,Department of Agriculture,livingry,276630012349.95,253236497823.79,463595143994.27,False
 2024,012,Department of Agriculture,livingry,253918299873.67,233005888496.86,437203384922.49,False
 2023,012,Department of Agriculture,livingry,296599267877.18,249293924049.04,475155999521.89,False
@@ -22,7 +22,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,012,Department of Agriculture,livingry,183549040915.82,153019770723.32,224372520297.27,False
 2017,012,Department of Agriculture,livingry,135669747833.62,129361302398.19,220459743630.97,False
 2027,068,Environmental Protection Agency,livingry,,,,True
-2026,068,Environmental Protection Agency,livingry,21215321918.57,17079612292.63,56866106074.7,True
+2026,068,Environmental Protection Agency,livingry,25869468321.41,18516155792.74,56724726399.32,True
 2025,068,Environmental Protection Agency,livingry,34262577412.72,38514194344.6,64632979013.99,False
 2024,068,Environmental Protection Agency,livingry,54387821470.26,15542947072.28,84400207464.03,False
 2023,068,Environmental Protection Agency,livingry,23652538067.59,14757655400.04,82925497845.02,False
@@ -33,7 +33,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,068,Environmental Protection Agency,livingry,10823836673.15,9993523049.05,15320418844.06,False
 2017,068,Environmental Protection Agency,livingry,10354617550.04,9916807054.72,14602810686.11,False
 2027,086,Department of Housing and Urban Development,livingry,,,,True
-2026,086,Department of Housing and Urban Development,livingry,81262457653.31,84852887067.19,343264343455.14,True
+2026,086,Department of Housing and Urban Development,livingry,92338730904.74,94418796184.42,342062035953.65,True
 2025,086,Department of Housing and Urban Development,livingry,90532059832.78,89883738203.95,322553564283.29,False
 2024,086,Department of Housing and Urban Development,livingry,88290176520.45,85091765167.06,283457102340.09,False
 2023,086,Department of Housing and Urban Development,livingry,84501344517.92,74903115860.38,260652029421.27,False
@@ -44,7 +44,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,086,Department of Housing and Urban Development,livingry,76622972278.59,67767527962.38,157916212177.12,False
 2017,086,Department of Housing and Urban Development,livingry,78352781672.11,74238168887.6,145979087200.58,False
 2027,014,Department of the Interior,livingry,,,,True
-2026,014,Department of the Interior,livingry,37802479770.8,36821485523.31,96773322454.92,True
+2026,014,Department of the Interior,livingry,45370059576.21,42171194165.17,94938993156.08,True
 2025,014,Department of the Interior,livingry,42848868679.89,41048339291.34,94273869060.16,False
 2024,014,Department of the Interior,livingry,44421920769.18,38842640899.32,92913669466.5,False
 2023,014,Department of the Interior,livingry,43363738981.79,37441182428.06,92162025521.29,False
@@ -55,7 +55,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,014,Department of the Interior,livingry,26344299309.44,25224942755.06,39077276346.45,False
 2017,014,Department of the Interior,livingry,25488796492.53,23925201966.56,36324198799.09,False
 2027,089,Department of Energy,energy,,,,True
-2026,089,Department of Energy,energy,69357515371.14,62670347332.0,141155070441.78,True
+2026,089,Department of Energy,energy,77494806227.17,68803697467.84,123772962962.09,True
 2025,089,Department of Energy,energy,98524875710.33,68745351385.78,143372995073.14,False
 2024,089,Department of Energy,energy,81727665979.08,65632933708.93,153410390283.76,False
 2023,089,Department of Energy,energy,71587391243.03,59626093220.24,148680986213.91,False
@@ -66,7 +66,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,089,Department of Energy,energy,45120566097.96,39721048576.95,53678386708.51,False
 2017,089,Department of Energy,energy,41619913661.6,39035308974.91,49418048521.17,False
 2027,091,Department of Education,provision,,,,True
-2026,091,Department of Education,provision,117368712882.97,134370708099.2,169736984687.99,True
+2026,091,Department of Education,provision,150336226027.81,147480274145.26,162684326495.5,True
 2025,091,Department of Education,provision,179690157931.34,187970767574.49,190636961083.79,False
 2024,091,Department of Education,provision,228967463538.8,273868344692.55,241658075055.27,False
 2023,091,Department of Education,provision,254914423992.33,307047124904.73,274355384737.95,False
@@ -77,7 +77,7 @@ fiscal_year,agency_code,agency,group,obligations,outlays,budgetary_resources,par
 2018,091,Department of Education,provision,95226038979.19,91538819634.8,113129579695.59,False
 2017,091,Department of Education,provision,139921868532.33,132552040033.37,152186993659.59,False
 2027,075,Department of Health and Human Services,mixed,,,,True
-2026,075,Department of Health and Human Services,mixed,2803832148217.51,2687036276023.63,3709407922072.44,True
+2026,075,Department of Health and Human Services,mixed,3178483684292.64,2954915382244.14,3524332883053.65,True
 2025,075,Department of Health and Human Services,mixed,2794349803088.6,2722170048224.94,3129725212729.56,False
 2024,075,Department of Health and Human Services,mixed,2518647728970.53,2474861136576.6,2864471437234.22,False
 2023,075,Department of Health and Human Services,mixed,2475673980552.7,2423434619295.49,2841385336401.95,False
